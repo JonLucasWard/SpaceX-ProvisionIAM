@@ -1,3 +1,22 @@
+TO DO:
+1-Assign JSON to objects for easier manipulation
+2-Move said objects into HTML for view
+3-Sort method for objects on screen
+4-Beautify app
+6-Apply appropriate security to app
+    -NOTE, no native webpack for bootstrap. Unless I have plenty of time
+7-Make tests cases for app
+    -Connect to spacex api
+    -Create object from dummy json
+    -Return webpage from call (with dummy data)
+    -Security test
+8-Ensure all comments and appropriate documentation are done.
+
+We are using:
+Java 17
+Spring-Boot
+BootStrap
+
 SpaceX WebApp
 
 General
