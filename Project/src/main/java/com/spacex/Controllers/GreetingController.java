@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.alibaba.fastjson.JSONObject;
+
 @Controller
 public class GreetingController {
 
@@ -26,12 +28,12 @@ public class GreetingController {
 			//https://api.spacexdata.com/v4/rockets
 			//security against malicious data coming in
 		//make it pretty
-		 	String url = "https://api.spacexdata.com/v4/rockets";
-		 	WebClient.Builder builder = WebClient.builder();
-		 	String x = builder
-				.build().get().uri(url).retrieve().bodyToMono(String.class).block();
-			System.out.println("What I got: " + x);
 
+		 	 String url = "https://api.spacexdata.com/v4/rockets";
+		 	 WebClient.Builder builder = WebClient.builder(); // instance of webclient
+			JSONObject[] response = builder //call URL and assign response to JSON-Object
+			 	.build().get().uri(url).retrieve().bodyToMono(JSONObject[].class).block();
+			System.out.println(response[0].getString("name"));
 
 		model.addAttribute("name", name);
 		return "rockets"; //return rockets.html
@@ -46,11 +48,11 @@ public class GreetingController {
 		//make it pretty
 
 		String url = "https://api.spacexdata.com/v4/launches";
-		WebClient.Builder builder = WebClient.builder();
-		String x = builder
+		WebClient.Builder builder = WebClient.builder(); //create instance of webclient
+		JSONObject[] response = builder //call URL and assign response to JSON-Object
 			.codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(500*1024)) //launches gives more data than is normally accepted, must overwrite max default
-			.build().get().uri(url).retrieve().bodyToMono(String.class).block();
-		System.out.println("What I got: " + x);
+			.build().get().uri(url).retrieve().bodyToMono(JSONObject[].class).block();
+		System.out.println(response[0].getJSONObject("auto_update"));
 
 		model.addAttribute("name", name);
 		return "launches"; //return launches.html
