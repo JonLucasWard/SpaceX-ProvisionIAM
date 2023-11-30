@@ -7,5 +7,25 @@
 </head>
 <body>
     <p th:text="|Rockets, ${name}!|" />
+    <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+            <!--Initial Test-->
+            <tr th:each="x:${rockets}">
+                <td th:text="${x.rocket.name}"></td>
+            </tr>
+            <!--Normal sorted loop-->
+            <tr th:each="x:${#lists.sort(rockets, reverse)}">
+                <td th:text="${x.rocket.name}"></td>
+            </tr>
+            <!--Reverse loop-->
+            <tr th:each="x : ${#numbers.sequence(rockets.size() - 1, 0, -1)}">
+                <td th:text="${rockets[x].rocket.name}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<button th:onclick="${#lists.sort(rockets)}">Click Me 1</button>-->
+    <!--<button th:onclick="${#lists.sort(rockets, reverse)}">Click Me 2</button>-->
 </body>
 </html>
