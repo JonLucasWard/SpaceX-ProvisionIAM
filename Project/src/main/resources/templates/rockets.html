@@ -17,19 +17,70 @@
             parent.insertBefore(parent.childNodes[i], parent.firstChild); //grabs "next" element and puts it behind the first
         }
     }
+
+    /* Hide and show elements of a row based on existing presence */
+    let switchCount = 0;
+    function displayToggle(input){
+        document.getElementsByName(input.id).forEach(
+            x => {
+                if(x.style.display==="none"){
+                    x.style.display = "";
+                    switchCount++;
+                } else{
+                    x.style.display = "none";
+                    switchCount--;
+                } 
+            }
+        );
+        if(switchCount < 1){
+            document.getElementsByName("headers").forEach(
+            x => x.style.display="none");
+        } else {
+            document.getElementsByName("headers").forEach(
+            x => x.style.display="");
+        }
+    }
+
 </script>
 <body>
-    <p th:text="|Rockets|" />
+    <div>
+        <p style="display:inline">Rockets</p>
+        <button style="display:inline" onclick="reverseList()")>Click Me</button>
+    </div>
     <table class="table">
         <thead>
+            <tr>
+                <th name="headers" style="display: none"></th>
+                <th name="headers" style="display: none">Image</th>
+                <th name="headers" style="display: none">Dimensions</th>
+                <th name="headers" style="display: none">Engines</th>
+                <th name="headers" style="display: none">Etc</th>
+            </tr>
         </thead>
         <tbody id="RocketList">
-            <tr  th:each="x:${rockets}">
-                <td th:text="${x.rocket.name}"></td>
+            <tr th:each="x:${rockets}">
+                <td><button type="button" th:id="${x.rocket.id}" class="btn btn-primary" th:text="${x.rocket.name}" onClick="displayToggle(this)"></button></td>
+                <td th:name="${x.rocket.id}" style="display: none">
+                    <img style="max-height:200px; max-width: 200px" th:src="${x.rocket.flickr_images[0]}" />
+                </td>
+                <td th:name="${x.rocket.id}" style="display: none">
+                    <p th:text="|${x.rocket.height.feet}ft tall|"/>
+                    <p th:text="|${x.rocket.diameter.feet}ft wide|"/>
+                    <p th:text="|${x.rocket.mass.lb} lbs|"/>
+                </td>
+                <td th:name="${x.rocket.id}" style="display: none">
+                    <p th:text="|${x.rocket.engines.type} type engine|"/>
+                    <p th:text="|${x.rocket.engines.layout} layout|"/>
+                    <p th:text="|${x.rocket.engines.thrust_to_weight} TtW Ratio|"/>
+                </td>
+                <td th:name="${x.rocket.id}" style="display: none">
+                    <p th:text="|${x.rocket.stages} stage rocket.|"/>
+                    <p th:text="|$${x.rocket.cost_per_launch} cost per launch|"/>
+                    <p th:text="|${x.rocket.success_rate_pct}% success rate.|"/>
+                </td>
             </tr>
         </tbody>
     </table>
-    <button onclick="reverseList()")>Click Me</button>
 </body>
 
 </html>

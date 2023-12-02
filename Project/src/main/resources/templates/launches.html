@@ -19,17 +19,17 @@
     }
 </script>
 <body>
-    <p th:text="|Launches|" />
+    <div style="top:0;left:0;position:sticky;background-color:white">
+        <p th:text="|Launches|" />
+        <button onclick="reverseList()")>Click Me</button>
+    </div>
     <table class="table">
-        <thead>
-        </thead>
         <tbody id="LaunchList">
             <tr  th:each="x:${launches}">
                 <td th:text="${x.launch.date_utc}"></td>
             </tr>
         </tbody>
     </table>
-    <button onclick="reverseList()")>Click Me</button>
 </body>
 
 </html>
