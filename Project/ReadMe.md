@@ -1,14 +1,10 @@
 TO DO:
-1-Sort method for objects on screen (need to use javascript to switch between sorts)
-2-Beautify app
-3-Apply appropriate security to app
-    -NOTE, no native webpack for bootstrap. Unless I have plenty of time
-4-Make tests cases for app
+1-Beautify app
+2-Make tests cases for app
     -Connect to spacex api
     -Create object from dummy json
     -Return webpage from call (with dummy data)
-    -Security test
-5-Ensure all comments and appropriate documentation are done.
+3-Ensure all comments and appropriate documentation are done.
 
 We are using:
 Java 17
