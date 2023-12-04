@@ -1,21 +1,45 @@
 package com.spacex.Controllers;
 
+/*
+ * Copyright 2002-2023 Jonathan Ward
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.alibaba.fastjson.JSONObject;
+
 import com.spacex.Objects.Launches;
 import com.spacex.Objects.Rockets;
 
+/**
+ * Returns associated html after processing api.spacexdata content for screen display after user hits URL endpoint.
+ */
 @Controller
 public class spaceXController {
 
+	/**
+	 * Returns processed rocket HTML file using api.spacexdata /rockets endpoint.
+	 * @param model Thymeleaf and JavaWeb data to pass to user
+	 * @return rockets.html
+	 */ 
 	@GetMapping("/rockets")
 	public String rockets(Model model) {
 
@@ -37,6 +61,11 @@ public class spaceXController {
 		return "rockets"; //return rockets.html
 	}
 
+	/**
+	 * Returns processed launch HTML file using api.spacexdata /launches endpoint.
+	 * @param model Thymeleaf and JavaWeb data to pass to user
+	 * @return launches.html
+	 */ 
 	@GetMapping("/launches")
 	public String launches(Model model) {
 

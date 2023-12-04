@@ -3,85 +3,54 @@
 <head> 
     <title>Getting Started: Serving Web Content</title> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> <!--load bootstrap from online CDN-->
-    <link rel="stylesheet" type="text/css" href="styling.css">
+    <link rel="stylesheet" type="text/css" href="styling.css"> <!--takes local style sheet-->
+    <script src="spaceXJavaScript.js"></script> <!--takes local javascript-->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<script>
-
-    /* We already sorted the list before sending up.
-    So if user wants to sort ASC or DSC, we just need to flip the actual order of nodes in the table.
-    This will work both ways and runs on client side.
-    */
-    function reverseList(){
-        let parent = document.getElementById("RocketList"); //grab top node before for-each
-        for (var i = 1; i < parent.childNodes.length; i++){ //iterate each child node made in initial loop
-            parent.insertBefore(parent.childNodes[i], parent.firstChild); //grabs "next" element and puts it behind the first
-        }
-    }
-
-    /* Hide and show elements of a row based on existing presence */
-    let switchCount = 0;
-    function displayToggle(input){
-        document.getElementsByName(input.id).forEach(
-            x => {
-                if(x.style.display==="none"){
-                    x.style.display = "";
-                    switchCount++;
-                } else{
-                    x.style.display = "none";
-                    switchCount--;
-                } 
-            }
-        );
-        if(switchCount < 1){
-            document.getElementsByName("headers").forEach(
-            x => x.style.display="none");
-        } else {
-            document.getElementsByName("headers").forEach(
-            x => x.style.display="");
-        }
-    }
-
-</script>
 <body>
-    <div class="anchor">
-        <p style="display:inline">Rockets</p>
-        <button style="display:inline" onclick="reverseList()")>Click Me</button>
-    </div>
     <table class="table">
-        <thead>
+        <thead class>
+            <div class="anchor">
+                <p class="title-head">SpaceX Rockets</p>
+                <button class="btn btn-primary anchor2" name="RocketList" onclick="reverseList(this)")>Reverse List</button>
+            </div>
             <tr>
                 <th name="headers" style="display: none"></th>
-                <th name="headers" style="display: none">Image</th>
-                <th name="headers" style="display: none">Dimensions</th>
-                <th name="headers" style="display: none">Engines</th>
-                <th name="headers" style="display: none">Etc</th>
+                <th name="headers" style="display: none"><p class="tableHeader">Image</p></th>
+                <th name="headers" style="display: none"><p class="tableHeader">Dimensions</p></th>
+                <th name="headers" style="display: none"><p class="tableHeader">Engines</p></th>
+                <th name="headers" style="display: none"><p class="tableHeader">Etc</p></th>
             </tr>
         </thead>
         <tbody id="RocketList">
-            <tr th:each="x:${rockets}">
-                <td><button type="button" th:id="${x.rocket.id}" class="btn btn-primary" th:text="${x.rocket.name}" onClick="displayToggle(this)"></button></td>
-                <td th:name="${x.rocket.id}" style="display: none">
-                    <img style="max-height:200px; max-width: 200px" th:src="${x.rocket.flickr_images[0]}" />
+            <tr th:each="x:${rockets}"> <!--Thymeleaf for-loop over passed rockets object-->
+                <td class="buttonCell"><button type="button" th:id="${x.rocket.id}" class="btn btn-info" th:text="${x.rocket.name}" onClick="displayToggle(this)"></button></td>
+                <td class="listImageCell" th:name="${x.rocket.id}" style="display: none">
+                    <img class="listImage" th:src="${x.rocket.flickr_images[0]}" />
                 </td>
-                <td th:name="${x.rocket.id}" style="display: none">
-                    <p th:text="|${x.rocket.height.feet}ft tall|"/>
-                    <p th:text="|${x.rocket.diameter.feet}ft wide|"/>
-                    <p th:text="|${x.rocket.mass.lb} lbs|"/>
+                <td th:name="${x.rocket.id}" class="textListRocket" style="display: none">
+                    <ul>                    
+                        <li><p th:utext="|<strong>Height:</strong> ${x.rocket.height.feet}ft|"/></li>
+                        <li><p th:utext="|<strong>Width:</strong> ${x.rocket.diameter.feet}ft|"/></li>
+                        <li><p th:utext="|<strong>Weight:</strong> ${x.rocket.mass.lb}lbs|"/></li>
+                    </ul>
                 </td>
-                <td th:name="${x.rocket.id}" style="display: none">
-                    <p th:text="|${x.rocket.engines.type} type engine|"/>
-                    <p th:text="|${x.rocket.engines.layout} layout|"/>
-                    <p th:text="|${x.rocket.engines.thrust_to_weight} TtW Ratio|"/>
+                <td th:name="${x.rocket.id}" class="textListRocket" style="display: none">
+                    <ul>                    
+                        <li><p th:utext="|<strong>Engine Type:</strong>${x.rocket.engines.type}|"/></li>
+                        <li><p th:utext="|<strong>Layout:</strong> ${x.rocket.engines.layout}|"/></li>
+                        <li><p th:utext="|<strong>TtW Ratio:</strong> ${x.rocket.engines.thrust_to_weight}|"/></li>
+                    </ul>
                 </td>
-                <td th:name="${x.rocket.id}" style="display: none">
-                    <p th:text="|${x.rocket.stages} stage rocket.|"/>
-                    <p th:text="|$${x.rocket.cost_per_launch} cost per launch|"/>
-                    <p th:text="|${x.rocket.success_rate_pct}% success rate.|"/>
+                <td th:name="${x.rocket.id}" class="textListRocket" style="display: none">
+                    <ul>                    
+                        <li><p th:utext="|<strong>Stages:</strong> ${x.rocket.stages}|"/></li>
+                        <li><p th:utext="|<strong>Cost per Launch:</strong> $${x.rocket.cost_per_launch}|"/></li>
+                        <li><p th:utext="|<strong>Success Rate:</strong> ${x.rocket.success_rate_pct}%|"/></li>
+                    </ul>
                 </td>
             </tr>
         </tbody>
     </table>
 </body>
-
 </html>

@@ -1,5 +1,21 @@
 package com.spacex.Security;
 
+/*
+ * Copyright 2002-2023 Jonathan Ward
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,14 +23,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.XXssProtectionHeaderWriter;
 
+
+/**
+ * Configures security of all inbound and outbound calls to application.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll());
-        http.headers((headers) -> headers.xssProtection((xss) -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK)));
+        http.authorizeHttpRequests((authorize) -> authorize.anyRequest().permitAll()); //disable login/authorization, not required at this time
+        http.headers((headers) -> headers.xssProtection((xss) -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))); //enable XSS proection headers
         return http.build();
     }
 }

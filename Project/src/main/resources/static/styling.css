@@ -1,3 +1,6 @@
+/**
+* anchor class is meant to pin an element to the very top of the screen, keeping it about 20vh large
+*/
 .anchor {
     position:sticky;
     background-color:gainsboro;
@@ -5,17 +8,26 @@
     min-height:20vh;
 }
 
+/**
+* anchor2 class is meant to pin an element secondary top of the screen, below anchor
+*/
 .anchor2 {
     position:sticky;
     top:20vh;
     min-height: fit-content;
 }
 
+/**
+* tableHeader class simply centers text in the table headers
+*/
 .tableHeader {
     margin:auto;
     text-align:center;
 }
 
+/**
+* title-head class stylizes and centers the text at the very top of the screen
+*/
 .title-head {
     margin:auto;
     width:50%;
@@ -26,15 +38,25 @@
     top:0em;
 }
 
+/**
+* btn-info edits here modify the BootStrap btn-info class
+* meant to match colors with existing format and set minimum size for the button for its text to wrap within
+*/
 .btn-info{
     color:gainsboro;
     min-width:7em;
 }
 
+/**
+* listImageCell forces the image to take about 25% of the visible screen within its table
+*/
 .listImageCell{
     width:25%;
 }
 
+/**
+* listImage class centers an image within its cell, and takes up at least 50% of its available space
+*/
 .listImage{
     height:200px;
     width:50%;
@@ -42,28 +64,56 @@
     display: block;
 }
 
+/**
+* textList class causes the affected cell to take about 15% of the visible screen width
+*/
 .textList{
     width:15%;
 }
 
+/**
+* textListRocket class causes the affected cell to take about 20% of the visible screen width
+* It is separate from the "launch" version because we are not rendering the variable size "details" text the former possesses, which varies width needs immensely
+*/
+.textListRocket{
+    width:20%;
+}
+
+/**
+* textDetail class creates an indent for the launch Details paragraph
+*/
 .textDetail{
     text-indent: 2em;
 }
 
+/**
+* Set odd table stripe coloring, overriding Bootstrap defaults
+*/
 tbody>tr:nth-child(odd)>td,
 tbody>tr:nth-child(odd)>th{
     background-color:oldlace;
 }
 
+/**
+* Set even table stripe coloring, overriding Bootstrap defaults
+*/
 tbody>tr:nth-child(even)>td,
 tbody>tr:nth-child(even)>th{
     background-color:gainsboro;
 }
 
-.table>:not(caption)>*>*{
+/**
+* Set baseline table coloring when not all rows are expanded
+*/
+.table>:not(caption)>*>*,
+table{
     background-color: gainsboro;
 }
 
-table{
-    background-color: gainsboro;
+/**
+* Set maximum allowed size for the button cell. 
+* Specifically so other columns in Rockets can have more space
+*/
+.buttonCell{
+    max-width: 50px;
 }
