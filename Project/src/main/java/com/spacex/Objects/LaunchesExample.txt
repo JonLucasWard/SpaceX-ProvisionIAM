@@ -1,6 +1,4 @@
 Example of what API pulls for launch
-In interest of time, will display 1 flikr image, then focus on all values past static_fire_date_utc downward,
-barring repeat information (like date unix) and non-human information (like rocket's hex-code looking value)
 
 {
     "fairings": null,

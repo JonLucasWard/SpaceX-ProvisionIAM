@@ -38,10 +38,3 @@ public class WebSecurityConfig {
         return http.build();
     }
 }
-
-// no access or id controls
-// HTTPS out of scope
-// Rate limiting out of scope
-// no crypto
-// all packages are latest
-

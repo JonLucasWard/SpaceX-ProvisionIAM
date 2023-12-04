@@ -1,6 +1,4 @@
 Example of what is pulled for rocket.
-In the interest of time I will display a flickr image and go down from there. Not render each and every field.
-
 
 {"height":
 	{"meters":118,"feet":387},
