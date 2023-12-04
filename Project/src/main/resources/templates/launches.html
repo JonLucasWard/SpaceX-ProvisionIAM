@@ -3,6 +3,7 @@
 <head> 
     <title>Getting Started: Serving Web Content</title> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> <!--load bootstrap from online CDN-->
+    <link rel="stylesheet" type="text/css" href="styling.css">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <script>
@@ -43,38 +44,44 @@
 
 </script>
 <body>
-    <div style="top:0;left:0;position:sticky;background-color:white">
-        <p th:text="|Launches|" />
-        <button onclick="reverseList()")>Click Me</button>
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
+
+    <table class="table table-striped">
+        <thead class>
+            <div class="anchor">
+                <p class="title-head">SpaceX Launches</p>
+                <button class="btn btn-primary anchor2" onclick="reverseList()")>Reverse List</button>
+            </div>
+            <tr class="anchor2">
                 <th name="headers" style="display: none"></th>
-                <th name="headers" style="display: none">Image</th>
-                <th name="headers" style="display: none">Synopsis</th>
-                <th name="headers" style="display: none">Details</th>
-                <th name="headers" style="display: none">Media</th>
+                <th name="headers" style="display: none"><p class="tableHeader">Image</p></th>
+                <th name="headers" style="display: none"><p class="tableHeader">Synopsis</p></th>
+                <th name="headers" style="display: none"><p class="tableHeader">Details</p></th>
+                <th name="headers" style="display: none"><p class="tableHeader">Media</p></th>
             </tr>
         </thead>
         <tbody id="LaunchList">
-            <tr  th:each="x:${launches}">
-                <td><button type="button" th:id="${x.launch.id}" class="btn btn-primary" th:text="${x.launchDate}" onClick="displayToggle(this)"></button></td>
-                <td th:name="${x.launch.id}" style="display: none">
-                    <img style="max-height:200px; max-width: 200px" th:src="${x.firstFlickrImage}" />
+            <tr th:each="x:${launches}">
+                <td><button type="button" th:id="${x.launch.id}" class="btn btn-info" th:text="${x.launchDate}" onClick="displayToggle(this)"></button></td>
+                <td th:name="${x.launch.id}" class="listImageCell" style="display: none">
+                    <img class="listImage" th:src="${x.firstFlickrImage}" />
+                </td>
+                <td th:name="${x.launch.id}" class="textList" style="display: none">
+                    <ul>                    
+                        <li><p th:utext="|<strong>Name:</strong> ${x.launch.name}|"/></li>
+                        <li><p th:utext="|<strong>Flight</strong> #${x.launch.flight_number}|"/></li>
+                        <li><p th:utext="|<strong>Success?</strong> ${x.launch.success}|"/></li>
+                    </ul>
+
                 </td>
                 <td th:name="${x.launch.id}" style="display: none">
-                    <p th:text="|Name: ${x.launch.name}|"/>
-                    <p th:text="|Flight #${x.launch.flight_number}|"/>
-                    <p th:text="|Success? ${x.launch.success}|"/>
+                    <p class="textDetail" th:text="|${x.launch.details}|"/>
                 </td>
-                <td th:name="${x.launch.id}" style="display: none">
-                    <p th:text="|${x.launch.details}|"/>
-                </td>
-                <td th:name="${x.launch.id}" style="display: none">
-                    <a th:href="${x.launch.links.webcast}">Webcast</a>
-                    <a th:href="${x.launch.links.wikipedia}">Wikipedia</a>
-                    <a th:href="${x.launch.links.reddit.launch}">Reddit</a>
+                <td th:name="${x.launch.id}" class="textList" style="display: none">
+                    <ul>
+                        <li><a th:href="${x.launch.links.webcast}">Webcast</a></li>
+                        <li><a th:href="${x.launch.links.wikipedia}">Wikipedia</a></li>
+                        <li><a th:href="${x.launch.links.reddit.launch}">Reddit</a></li>
+                    </ul>
                 </td>
 
             </tr>
