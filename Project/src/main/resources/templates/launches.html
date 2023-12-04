@@ -17,6 +17,30 @@
             parent.insertBefore(parent.childNodes[i], parent.firstChild); //grabs "next" element and puts it behind the first
         }
     }
+
+    /* Hide and show elements of a row based on existing presence */
+    let switchCount = 0;
+    function displayToggle(input){
+        document.getElementsByName(input.id).forEach(
+            x => {
+                if(x.style.display==="none"){
+                    x.style.display = "";
+                    switchCount++;
+                } else{
+                    x.style.display = "none";
+                    switchCount--;
+                } 
+            }
+        );
+        if(switchCount < 1){
+            document.getElementsByName("headers").forEach(
+            x => x.style.display="none");
+        } else {
+            document.getElementsByName("headers").forEach(
+            x => x.style.display="");
+        }
+    }
+
 </script>
 <body>
     <div style="top:0;left:0;position:sticky;background-color:white">
@@ -24,9 +48,35 @@
         <button onclick="reverseList()")>Click Me</button>
     </div>
     <table class="table">
+        <thead>
+            <tr>
+                <th name="headers" style="display: none"></th>
+                <th name="headers" style="display: none">Image</th>
+                <th name="headers" style="display: none">Synopsis</th>
+                <th name="headers" style="display: none">Details</th>
+                <th name="headers" style="display: none">Media</th>
+            </tr>
+        </thead>
         <tbody id="LaunchList">
             <tr  th:each="x:${launches}">
-                <td th:text="${x.launch.date_utc}"></td>
+                <td><button type="button" th:id="${x.launch.id}" class="btn btn-primary" th:text="${x.launchDate}" onClick="displayToggle(this)"></button></td>
+                <td th:name="${x.launch.id}" style="display: none">
+                    <img style="max-height:200px; max-width: 200px" th:src="${x.firstFlickrImage}" />
+                </td>
+                <td th:name="${x.launch.id}" style="display: none">
+                    <p th:text="|Name: ${x.launch.name}|"/>
+                    <p th:text="|Flight #${x.launch.flight_number}|"/>
+                    <p th:text="|Success? ${x.launch.success}|"/>
+                </td>
+                <td th:name="${x.launch.id}" style="display: none">
+                    <p th:text="|${x.launch.details}|"/>
+                </td>
+                <td th:name="${x.launch.id}" style="display: none">
+                    <a th:href="${x.launch.links.webcast}">Webcast</a>
+                    <a th:href="${x.launch.links.wikipedia}">Wikipedia</a>
+                    <a th:href="${x.launch.links.reddit.launch}">Reddit</a>
+                </td>
+
             </tr>
         </tbody>
     </table>
